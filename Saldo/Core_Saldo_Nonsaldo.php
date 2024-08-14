@@ -1,4 +1,5 @@
-						
+
+                            					
 <?php
 //=====================================================START====================//
 
@@ -1178,21 +1179,23 @@ $mkbot->cmd('*', 'Maaf commands tidak tersedia');
                            if ($type == 'up') {
                               $caption = "";
                               $caption .= "<code>=========================</code>\n";
-                              $caption .= "<code>  ID         : $add_user_api</code>\n";
                               $caption .= "<code>  Username   :</code> <code>$usernamereal</code>\n";
                               $caption .= "<code>  Password   :</code> <code>$passwordreal</code>\n";
+                              $caption .= "<code>  Paket      :</code> <code>$profile</code>\n";
                               $caption .= $echoexperid;
                               $caption .= "<code>=========================</code>\n";
-                              $caption .= "<code>GUNAKAN INTERNET DGN BIJAK</code>\n";
+                              $caption .= "<code>TERIMA KASIH</code>\n";
                               $caption .= "<code>=========================</code>\n";
                            } else {
                               $caption = "";
                               $caption .= "<code>=========================</code>\n";
-                              $caption .= "<code>  ID         : $add_user_api</code>\n";
-                              $caption .= "<code>  ID Voucher :</code> <code>$usernamereal</code>\n";
+                              $caption .= "<code>VOUCHER WIFI</code>\n";
+                              $caption .= "<code>=========================</code>\n";
+                              $caption .= "<code>  Kode       :</code> <code>$usernamereal</code>\n";
+                              $caption .= "<code>  Paket      :</code> <code>$profile</code>\n";
                               $caption .= $echoexperid;
                               $caption .= "<code>=========================</code>\n";
-                              $caption .= "<code>GUNAKAN INTERNET DGN BIJAK</code>\n";
+                              $caption .= "<code>TERIMA KASIH</code>\n";
                               $caption .= "<code>=========================</code>\n";
                            }
 
@@ -1212,6 +1215,7 @@ $mkbot->cmd('*', 'Maaf commands tidak tersedia');
                               } else {
                                  $url = "http://$dnsname/login?username=$usernamereal&password=$passwordreal";}
 
+                              //$qrcode     = 'https://www.rumahpetir.com/kotak/header.php?warna=' . $Color.'&voc='.$usernamereal ;
                               $qrcode     = 'http://qrickit.com/api/qr.php?d=' . urlencode($url) . '&addtext=' . urlencode($Name_router) . '&txtcolor=000000&fgdcolor=' . $Color . '&bgdcolor=FFFFFF&qrsize=500';
                               $keyboard[] = [
                                  ['text' => 'Go to Login', 'url' => $url],
@@ -1223,7 +1227,8 @@ $mkbot->cmd('*', 'Maaf commands tidak tersedia');
                                  'reply_markup' => ['inline_keyboard' => $keyboard],
                                  'parse_mode' => 'html'
                               ];
-                              $succes = Bot::sendPhoto($qrcode, $options);
+                              //$succes = Bot::sendPhoto($qrcode, $options);
+                              $succes = Bot::sendMessage($caption, $options);
                            }
 
                            $success = json_decode($succes, true);
@@ -1283,12 +1288,18 @@ $mkbot->cmd('*', 'Maaf commands tidak tersedia');
                   $set = belivoucher($id, $usernamepelanggan, '0', '0', $usernamereal, $passwordreal, $profile, $keterangan);
                } else if (!empty($succes)) {
                	
+                  $saldoawal   = lihatsaldo($id);
+                  $markupakhir = minus($princevoc, $markup);
+                  $saldoakhir  = minus($saldoawal, $markupakhir);
                   $Success = "";
                   $Success = "<code>  Beli Voucher " . rupiah($princevoc) . "   </code>\n";
                   $Success .= "<code>========================</code>\n";
-                  $Success .= "<code>  ID User  :</code> <code>$id</code>\n";
-                  $Success .= "<code>  Username :</code> @$usernamepelanggan\n";
-                  $Success .= "<code>  Status   : Success </code>\n";
+                  $Success .= "<code>  ID User    :</code> <code>$id</code>\n";
+                  $Success .= "<code>  Username   :</code> @$usernamepelanggan\n";
+                  $Success .= "<code>  Status     : Success </code>\n";
+                  $Success .= "<code>  Harga      : " . rupiah($markupakhir) . "</code>\n";
+                  $Success .= "<code>  Saldo awal : " . rupiah($saldoawal) . "</code>\n";
+                  $Success .= "<code>  Saldo akhir: " . rupiah($saldoakhir) . "</code>\n";
                   $Success .= "<code>========================</code>\n";
 
                   if (isset($Success)) {
@@ -1582,7 +1593,6 @@ $mkbot->cmd('*', 'Maaf commands tidak tersedia');
                                               if ($type == 'up') {
                               $caption = "";
                               $caption .= "<code>=========================</code>\n";
-                              $caption .= "<code>  ID         : $add_user_api</code>\n";
                               $caption .= "<code>  Username   :</code> <code>$usernamereal</code>\n";
                               $caption .= "<code>  Password   :</code> <code>$passwordreal</code>\n";
                               $caption .= $echoexperid;
@@ -1592,8 +1602,7 @@ $mkbot->cmd('*', 'Maaf commands tidak tersedia');
                            } else {
                               $caption = "";
                               $caption .= "<code>=========================</code>\n";
-                              $caption .= "<code>  ID         : $add_user_api</code>\n";
-                              $caption .= "<code>  ID Voucher :</code> <code>$usernamereal</code>\n";
+                              $caption .= "<code>  Voucher    :</code> <code>$usernamereal</code>\n";
                               $caption .= $echoexperid;
                               $caption .= "<code>=========================</code>\n";
                               $caption .= "<code>GUNAKAN INTERNET DGN BIJAK</code>\n";
@@ -2042,3 +2051,6 @@ Thanks to SengkuniCode for web ui,
 
  */
 	        	        	        	        	        	        	        	        	        	        
+					
+					
+	        
